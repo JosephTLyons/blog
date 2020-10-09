@@ -11,7 +11,7 @@ Hard to imagine that it's already been a year since Nu first went public. At the
 
 When Nu first started, it started with a simple idea: the output of `ls`, `ps`, and `sysinfo` should all output the same thing. Taking a page from PowerShell, we explored outputting structured data and quickly settled on a table design that would support the output of each of the three commands, with the added ability of streaming the output as it became available.
 
-Around this idea, we then built a set of "filters", like the `where` clause, borrowed from SQL, and a growing set of data types we would support natively.  Soon, we were able to write more complex statements like `ls | where size > 10kb`. This became the crux of the idea - commands that output values from a core set of data types into a stream, composed together with the traditional UNIX pipe (`|`), so that you could build up a complex set of commands that work over the data as it streams through. 
+Around this idea, we then built a set of "filters", like the `where` clause, borrowed from SQL, and a growing set of data types we would support natively.  Soon, we were able to write more complex statements like `ls | where size > 10kb`. This became the crux of the idea - commands that output values from a core set of data types into a stream, composed together with the traditional UNIX pipe (`|`), so that you could build up a complex set of commands that work over the data as it streams through.
 
 # Nushell today
 
@@ -77,7 +77,7 @@ error: Coercion error
   │
 1 │ = 1min + 1kb
   │   ^^^^   --- filesize(in bytes)
-  │   │       
+  │   │
   │   duration
 ```
 
@@ -88,10 +88,10 @@ Data in Nu also isn't just the value, but it's also a set of metadata that comes
 ```
 open package.json | tags
 ───┬─────────────────┬──────────────────────────────────────────────────────────────────────────────
- # │      span       │                                    anchor                                    
+ # │      span       │                                    anchor
 ───┼─────────────────┼──────────────────────────────────────────────────────────────────────────────
- 0 │ [row end start] │ /home/jonathan/Source/servo/tests/wpt/web-platform-tests/webrtc/tools/packag 
-   │                 │ e.json                                                                       
+ 0 │ [row end start] │ /home/jonathan/Source/servo/tests/wpt/web-platform-tests/webrtc/tools/packag
+   │                 │ e.json
 ───┴─────────────────┴──────────────────────────────────────────────────────────────────────────────
 ```
 
@@ -181,7 +181,7 @@ In math mode, we can now parse an expression using operator precedence. The `whe
 where { = $it.size > 10kb }
 ```
 
-You can also see a few other steps thrown in, like the expansion of a short-hand path into the full variable path using `$it`. 
+You can also see a few other steps thrown in, like the expansion of a short-hand path into the full variable path using `$it`.
 
 ## Kebabs and question marks
 

@@ -7,7 +7,7 @@ author_image: https://www.nushell.sh/blog/images/jonathandturner.jpg
 
 Today, we're introducing a new shell, written in Rust. It draws inspiration from the classic Unix philosophy of pipelines, the structured data approach of PowerShell, functional programming, systems programming, and more.
 
-It's called Nushell, or just Nu for short.  We have a [book](https://book.nushell.sh/en) (¡también se habla [Español](https://book.nushell.sh/es)!). We have a [repo](https://github.com/nushell/nushell). 
+It's called Nushell, or just Nu for short.  We have a [book](https://book.nushell.sh/en) (¡también se habla [Español](https://book.nushell.sh/es)!). We have a [repo](https://github.com/nushell/nushell).
 
 This release was made by Jonathan Turner (me), Yehuda Katz, and Andrés Robalino, with contributions from Odin Dutton.
 
@@ -59,11 +59,11 @@ To work with this in Nu, we need to do two steps: figure out where the rows are,
 ```
 > open people.psv | lines
 ---+------------------------------
- # | value 
+ # | value
 ---+------------------------------
- 0 | Octavia | Butler | Writer 
- 1 | Bob | Ross | Painter 
- 2 | Antonio | Vivaldi | Composer 
+ 0 | Octavia | Butler | Writer
+ 1 | Bob | Ross | Painter
+ 2 | Antonio | Vivaldi | Composer
 ---+------------------------------
 ```
 
@@ -72,11 +72,11 @@ Next, we can create our columns by splitting each row at the pipe (`|`) symbol:
 ```
 > open people.psv | lines | split-column "|"
 ---+----------+-----------+-----------
- # | Column1  | Column2   | Column3 
+ # | Column1  | Column2   | Column3
 ---+----------+-----------+-----------
- 0 | Octavia  |  Butler   |  Writer 
- 1 | Bob      |  Ross     |  Painter 
- 2 | Antonio  |  Vivaldi  |  Composer 
+ 0 | Octavia  |  Butler   |  Writer
+ 1 | Bob      |  Ross     |  Painter
+ 2 | Antonio  |  Vivaldi  |  Composer
 ---+----------+-----------+-----------
 ```
 
@@ -85,11 +85,11 @@ That's already good enough that we can work with the data. We can go a step furt
 ```
 > open people.psv | lines | split-column " | " firstname lastname job
 ---+-----------+----------+----------
- # | firstname | lastname | job 
+ # | firstname | lastname | job
 ---+-----------+----------+----------
- 0 | Octavia   | Butler   | Writer 
- 1 | Bob       | Ross     | Painter 
- 2 | Antonio   | Vivaldi  | Composer 
+ 0 | Octavia   | Butler   | Writer
+ 1 | Bob       | Ross     | Painter
+ 2 | Antonio   | Vivaldi  | Composer
 ---+-----------+----------+----------
 ```
 
@@ -106,25 +106,25 @@ We'll use the same commands we used on data to bring it into Nu:
 ```
 ^ls | split-row " " file
 ----+---------------
- #  | value 
+ #  | value
 ----+---------------
- 0  | assets 
- 1  | Cargo2.toml 
- 2  | Cargo.lock 
- 3  | Cargo.toml 
- 4  | docs 
- 5  | extra 
- 6  | images 
- 7  | LICENSE 
- 8  | Makefile.toml 
- 9  | open 
- 10 | README.md 
- 11 | readonly.txt 
- 12 | rustfmt2.toml 
- 13 | rustfmt.toml 
- 14 | src 
- 15 | target 
- 16 | tests 
+ 0  | assets
+ 1  | Cargo2.toml
+ 2  | Cargo.lock
+ 3  | Cargo.toml
+ 4  | docs
+ 5  | extra
+ 6  | images
+ 7  | LICENSE
+ 8  | Makefile.toml
+ 9  | open
+ 10 | README.md
+ 11 | readonly.txt
+ 12 | rustfmt2.toml
+ 13 | rustfmt.toml
+ 14 | src
+ 15 | target
+ 16 | tests
 ----+---------------
 ```
 
@@ -133,34 +133,34 @@ Or maybe we want to work with the native `ls -la`:
 ```
 ^ls -la | lines | split-column " "
 ----+------------+---------+----------+----------+---------+---------+---------+---------+---------------
- #  | Column1    | Column2 | Column3  | Column4  | Column5 | Column6 | Column7 | Column8 | Column9 
+ #  | Column1    | Column2 | Column3  | Column4  | Column5 | Column6 | Column7 | Column8 | Column9
 ----+------------+---------+----------+----------+---------+---------+---------+---------+---------------
- 0  | total      | 296     |          |          |         |         |         |         |  
- 1  | drwxr-xr-x | 13      | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | . 
- 2  | drwxr-xr-x | 21      | jonathan | jonathan | 4096    | Aug     | 22      | 17:00   | .. 
- 3  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Aug     | 3       | 05:39   | assets 
- 4  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Aug     | 21      | 19:29   | .azure 
- 5  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Jun     | 23      | 05:09   | .cargo 
- 6  | -rw-r--r-- | 1       | jonathan | jonathan | 2963    | Aug     | 22      | 20:17   | Cargo2.toml 
- 7  | -rw-r--r-- | 1       | jonathan | jonathan | 201255  | Aug     | 24      | 03:24   | Cargo.lock 
- 8  | -rw-r--r-- | 1       | jonathan | jonathan | 3127    | Aug     | 24      | 03:24   | Cargo.toml 
- 9  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Jun     | 17      | 15:32   | docs 
- 10 | -rw-r--r-- | 1       | jonathan | jonathan | 148     | Jun     | 17      | 15:32   | .editorconfig 
- 11 | drwxr-xr-x | 4       | jonathan | jonathan | 4096    | Aug     | 22      | 19:29   | extra 
- 12 | drwxr-xr-x | 8       | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | .git 
- 13 | -rw-r--r-- | 1       | jonathan | jonathan | 58      | Aug     | 10      | 11:08   | .gitignore 
- 14 | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | images 
- 15 | -rw-r--r-- | 1       | jonathan | jonathan | 1085    | Jun     | 17      | 15:32   | LICENSE 
- 16 | -rw-r--r-- | 1       | jonathan | jonathan | 614     | Jun     | 17      | 15:32   | Makefile.toml 
- 17 | -rw-r--r-- | 1       | jonathan | jonathan | 0       | Aug     | 23      | 04:58   | open 
- 18 | -rw-r--r-- | 1       | jonathan | jonathan | 11375   | Aug     | 24      | 03:24   | README.md 
- 19 | -r--r--r-- | 1       | jonathan | jonathan | 0       | Jul     | 4       | 03:51   | readonly.txt 
- 20 | -rw-r--r-- | 1       | jonathan | jonathan | 37      | Aug     | 23      | 04:54   | rustfmt2.toml 
- 21 | -rw-r--r-- | 1       | jonathan | jonathan | 16      | Aug     | 1       | 19:45   | rustfmt.toml 
- 22 | drwxr-xr-x | 10      | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | src 
- 23 | drwxr-xr-x | 4       | jonathan | jonathan | 4096    | Aug     | 22      | 19:22   | target 
- 24 | drwxr-xr-x | 4       | jonathan | jonathan | 4096    | Aug     | 22      | 04:15   | tests 
- 25 | drwxrwxr-x | 2       | jonathan | jonathan | 4096    | Jul     | 19      | 15:18   | .vscode 
+ 0  | total      | 296     |          |          |         |         |         |         |
+ 1  | drwxr-xr-x | 13      | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | .
+ 2  | drwxr-xr-x | 21      | jonathan | jonathan | 4096    | Aug     | 22      | 17:00   | ..
+ 3  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Aug     | 3       | 05:39   | assets
+ 4  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Aug     | 21      | 19:29   | .azure
+ 5  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Jun     | 23      | 05:09   | .cargo
+ 6  | -rw-r--r-- | 1       | jonathan | jonathan | 2963    | Aug     | 22      | 20:17   | Cargo2.toml
+ 7  | -rw-r--r-- | 1       | jonathan | jonathan | 201255  | Aug     | 24      | 03:24   | Cargo.lock
+ 8  | -rw-r--r-- | 1       | jonathan | jonathan | 3127    | Aug     | 24      | 03:24   | Cargo.toml
+ 9  | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Jun     | 17      | 15:32   | docs
+ 10 | -rw-r--r-- | 1       | jonathan | jonathan | 148     | Jun     | 17      | 15:32   | .editorconfig
+ 11 | drwxr-xr-x | 4       | jonathan | jonathan | 4096    | Aug     | 22      | 19:29   | extra
+ 12 | drwxr-xr-x | 8       | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | .git
+ 13 | -rw-r--r-- | 1       | jonathan | jonathan | 58      | Aug     | 10      | 11:08   | .gitignore
+ 14 | drwxr-xr-x | 2       | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | images
+ 15 | -rw-r--r-- | 1       | jonathan | jonathan | 1085    | Jun     | 17      | 15:32   | LICENSE
+ 16 | -rw-r--r-- | 1       | jonathan | jonathan | 614     | Jun     | 17      | 15:32   | Makefile.toml
+ 17 | -rw-r--r-- | 1       | jonathan | jonathan | 0       | Aug     | 23      | 04:58   | open
+ 18 | -rw-r--r-- | 1       | jonathan | jonathan | 11375   | Aug     | 24      | 03:24   | README.md
+ 19 | -r--r--r-- | 1       | jonathan | jonathan | 0       | Jul     | 4       | 03:51   | readonly.txt
+ 20 | -rw-r--r-- | 1       | jonathan | jonathan | 37      | Aug     | 23      | 04:54   | rustfmt2.toml
+ 21 | -rw-r--r-- | 1       | jonathan | jonathan | 16      | Aug     | 1       | 19:45   | rustfmt.toml
+ 22 | drwxr-xr-x | 10      | jonathan | jonathan | 4096    | Aug     | 24      | 03:24   | src
+ 23 | drwxr-xr-x | 4       | jonathan | jonathan | 4096    | Aug     | 22      | 19:22   | target
+ 24 | drwxr-xr-x | 4       | jonathan | jonathan | 4096    | Aug     | 22      | 04:15   | tests
+ 25 | drwxrwxr-x | 2       | jonathan | jonathan | 4096    | Jul     | 19      | 15:18   | .vscode
 ----+------------+---------+----------+----------+---------+---------+---------+---------+---------------
 ```
 
@@ -169,33 +169,33 @@ After a bit of experimenting, we might come up with a command like this:
 ```
 > ^ls -la | lines | skip 1 | split-column " " perms files group user size month day time name
 ----+------------+-------+----------+----------+--------+-------+-----+-------+---------------
- #  | perms      | files | group    | user     | size   | month | day | time  | name 
+ #  | perms      | files | group    | user     | size   | month | day | time  | name
 ----+------------+-------+----------+----------+--------+-------+-----+-------+---------------
- 0  | drwxr-xr-x | 13    | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | . 
- 1  | drwxr-xr-x | 21    | jonathan | jonathan | 4096   | Aug   | 22  | 17:00 | .. 
- 2  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Aug   | 3   | 05:39 | assets 
- 3  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Aug   | 21  | 19:29 | .azure 
- 4  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Jun   | 23  | 05:09 | .cargo 
- 5  | -rw-r--r-- | 1     | jonathan | jonathan | 2963   | Aug   | 22  | 20:17 | Cargo2.toml 
- 6  | -rw-r--r-- | 1     | jonathan | jonathan | 201255 | Aug   | 24  | 03:24 | Cargo.lock 
- 7  | -rw-r--r-- | 1     | jonathan | jonathan | 3127   | Aug   | 24  | 03:24 | Cargo.toml 
- 8  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Jun   | 17  | 15:32 | docs 
- 9  | -rw-r--r-- | 1     | jonathan | jonathan | 148    | Jun   | 17  | 15:32 | .editorconfig 
- 10 | drwxr-xr-x | 4     | jonathan | jonathan | 4096   | Aug   | 22  | 19:29 | extra 
- 11 | drwxr-xr-x | 8     | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | .git 
- 12 | -rw-r--r-- | 1     | jonathan | jonathan | 58     | Aug   | 10  | 11:08 | .gitignore 
- 13 | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | images 
- 14 | -rw-r--r-- | 1     | jonathan | jonathan | 1085   | Jun   | 17  | 15:32 | LICENSE 
- 15 | -rw-r--r-- | 1     | jonathan | jonathan | 614    | Jun   | 17  | 15:32 | Makefile.toml 
- 16 | -rw-r--r-- | 1     | jonathan | jonathan | 0      | Aug   | 23  | 04:58 | open 
- 17 | -rw-r--r-- | 1     | jonathan | jonathan | 11375  | Aug   | 24  | 03:24 | README.md 
- 18 | -r--r--r-- | 1     | jonathan | jonathan | 0      | Jul   | 4   | 03:51 | readonly.txt 
- 19 | -rw-r--r-- | 1     | jonathan | jonathan | 37     | Aug   | 23  | 04:54 | rustfmt2.toml 
- 20 | -rw-r--r-- | 1     | jonathan | jonathan | 16     | Aug   | 1   | 19:45 | rustfmt.toml 
- 21 | drwxr-xr-x | 10    | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | src 
- 22 | drwxr-xr-x | 4     | jonathan | jonathan | 4096   | Aug   | 22  | 19:22 | target 
- 23 | drwxr-xr-x | 4     | jonathan | jonathan | 4096   | Aug   | 22  | 04:15 | tests 
- 24 | drwxrwxr-x | 2     | jonathan | jonathan | 4096   | Jul   | 19  | 15:18 | .vscode 
+ 0  | drwxr-xr-x | 13    | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | .
+ 1  | drwxr-xr-x | 21    | jonathan | jonathan | 4096   | Aug   | 22  | 17:00 | ..
+ 2  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Aug   | 3   | 05:39 | assets
+ 3  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Aug   | 21  | 19:29 | .azure
+ 4  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Jun   | 23  | 05:09 | .cargo
+ 5  | -rw-r--r-- | 1     | jonathan | jonathan | 2963   | Aug   | 22  | 20:17 | Cargo2.toml
+ 6  | -rw-r--r-- | 1     | jonathan | jonathan | 201255 | Aug   | 24  | 03:24 | Cargo.lock
+ 7  | -rw-r--r-- | 1     | jonathan | jonathan | 3127   | Aug   | 24  | 03:24 | Cargo.toml
+ 8  | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Jun   | 17  | 15:32 | docs
+ 9  | -rw-r--r-- | 1     | jonathan | jonathan | 148    | Jun   | 17  | 15:32 | .editorconfig
+ 10 | drwxr-xr-x | 4     | jonathan | jonathan | 4096   | Aug   | 22  | 19:29 | extra
+ 11 | drwxr-xr-x | 8     | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | .git
+ 12 | -rw-r--r-- | 1     | jonathan | jonathan | 58     | Aug   | 10  | 11:08 | .gitignore
+ 13 | drwxr-xr-x | 2     | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | images
+ 14 | -rw-r--r-- | 1     | jonathan | jonathan | 1085   | Jun   | 17  | 15:32 | LICENSE
+ 15 | -rw-r--r-- | 1     | jonathan | jonathan | 614    | Jun   | 17  | 15:32 | Makefile.toml
+ 16 | -rw-r--r-- | 1     | jonathan | jonathan | 0      | Aug   | 23  | 04:58 | open
+ 17 | -rw-r--r-- | 1     | jonathan | jonathan | 11375  | Aug   | 24  | 03:24 | README.md
+ 18 | -r--r--r-- | 1     | jonathan | jonathan | 0      | Jul   | 4   | 03:51 | readonly.txt
+ 19 | -rw-r--r-- | 1     | jonathan | jonathan | 37     | Aug   | 23  | 04:54 | rustfmt2.toml
+ 20 | -rw-r--r-- | 1     | jonathan | jonathan | 16     | Aug   | 1   | 19:45 | rustfmt.toml
+ 21 | drwxr-xr-x | 10    | jonathan | jonathan | 4096   | Aug   | 24  | 03:24 | src
+ 22 | drwxr-xr-x | 4     | jonathan | jonathan | 4096   | Aug   | 22  | 19:22 | target
+ 23 | drwxr-xr-x | 4     | jonathan | jonathan | 4096   | Aug   | 22  | 04:15 | tests
+ 24 | drwxrwxr-x | 2     | jonathan | jonathan | 4096   | Jul   | 19  | 15:18 | .vscode
 ----+------------+-------+----------+----------+--------+-------+-----+-------+---------------
 ```
 
@@ -220,8 +220,8 @@ We've seen the tables. Nu also supports opening and looking at text and binary d
 Being able to view data is helpful, and this kind of polish extends to other aspects, like error messages:
 
 ![simple error](https://www.nushell.sh/blog/images/nu_error2.png)
- 
-Nu takes heavy inspiration from the [error messages in Rust](https://blog.rust-lang.org/2016/08/10/Shape-of-errors-to-come.html). As much as possible, draw your eyes to the problem. 
+
+Nu takes heavy inspiration from the [error messages in Rust](https://blog.rust-lang.org/2016/08/10/Shape-of-errors-to-come.html). As much as possible, draw your eyes to the problem.
 
 Combined with the pipeline, some pretty interesting errors are possible:
 
@@ -232,15 +232,15 @@ You might wonder how does that even work. Nu has a metadata system (still early!
 ```
 > open Cargo.toml
 ------------+--------------+------------------+----------+----------
- bin        | dependencies | dev-dependencies | lib      | package 
+ bin        | dependencies | dev-dependencies | lib      | package
 ------------+--------------+------------------+----------+----------
- [11 items] | [object]     | [object]         | [object] | [object] 
+ [11 items] | [object]     | [object]         | [object] | [object]
 ------------+--------------+------------------+----------+----------
 > open Cargo.toml | tags
 ----------+------------------------------------------
- span     | origin 
+ span     | origin
 ----------+------------------------------------------
- [object] | /home/jonathan/Source/nushell/Cargo.toml 
+ [object] | /home/jonathan/Source/nushell/Cargo.toml
 ----------+------------------------------------------
 ```
 
@@ -256,10 +256,10 @@ In Nu, we can `enter` a directory, which adds it to a ring of shells we can boun
 > enter ../rhai/
 /home/jonathan/Source/rhai(master)> shells
 ---+---+------------+-------------------------------
- # |   | name       | path 
+ # |   | name       | path
 ---+---+------------+-------------------------------
- 0 |   | filesystem | /home/jonathan/Source/nushell 
- 1 | X | filesystem | /home/jonathan/Source/rhai 
+ 0 |   | filesystem | /home/jonathan/Source/nushell
+ 1 | X | filesystem | /home/jonathan/Source/rhai
 ---+---+------------+-------------------------------
 ```
 
@@ -271,11 +271,11 @@ You might noticed that `name` column in the `shells` table. Why's that there?  O
 > enter Cargo.toml
 /> shells
 ---+---+--------------------------------------------+-------------------------------
- # |   | name                                       | path 
+ # |   | name                                       | path
 ---+---+--------------------------------------------+-------------------------------
- 0 |   | filesystem                                 | /home/jonathan/Source/nushell 
- 1 |   | filesystem                                 | /home/jonathan/Source/rhai 
- 2 | X | {/home/jonathan/Source/nushell/Cargo.toml} | / 
+ 0 |   | filesystem                                 | /home/jonathan/Source/nushell
+ 1 |   | filesystem                                 | /home/jonathan/Source/rhai
+ 2 | X | {/home/jonathan/Source/nushell/Cargo.toml} | /
 ---+---+--------------------------------------------+-------------------------------
 ```
 
@@ -284,26 +284,26 @@ That's right, we're in the file.  Can we `cd`? Oh yes, we can:
 ```
 /> ls
 ------------+--------------+------------------+----------+----------
- bin        | dependencies | dev-dependencies | lib      | package 
+ bin        | dependencies | dev-dependencies | lib      | package
 ------------+--------------+------------------+----------+----------
- [11 items] | [object]     | [object]         | [object] | [object] 
+ [11 items] | [object]     | [object]         | [object] | [object]
 ------------+--------------+------------------+----------+----------
 /> cd bin
 /bin> ls
 ----+----------------------+---------------------------
- #  | name                 | path 
+ #  | name                 | path
 ----+----------------------+---------------------------
- 0  | nu_plugin_inc        | src/plugins/inc.rs 
- 1  | nu_plugin_sum        | src/plugins/sum.rs 
- 2  | nu_plugin_add        | src/plugins/add.rs 
- 3  | nu_plugin_edit       | src/plugins/edit.rs 
- 4  | nu_plugin_str        | src/plugins/str.rs 
- 5  | nu_plugin_skip       | src/plugins/skip.rs 
- 6  | nu_plugin_sys        | src/plugins/sys.rs 
- 7  | nu_plugin_tree       | src/plugins/tree.rs 
- 8  | nu_plugin_binaryview | src/plugins/binaryview.rs 
- 9  | nu_plugin_textview   | src/plugins/textview.rs 
- 10 | nu                   | src/main.rs 
+ 0  | nu_plugin_inc        | src/plugins/inc.rs
+ 1  | nu_plugin_sum        | src/plugins/sum.rs
+ 2  | nu_plugin_add        | src/plugins/add.rs
+ 3  | nu_plugin_edit       | src/plugins/edit.rs
+ 4  | nu_plugin_str        | src/plugins/str.rs
+ 5  | nu_plugin_skip       | src/plugins/skip.rs
+ 6  | nu_plugin_sys        | src/plugins/sys.rs
+ 7  | nu_plugin_tree       | src/plugins/tree.rs
+ 8  | nu_plugin_binaryview | src/plugins/binaryview.rs
+ 9  | nu_plugin_textview   | src/plugins/textview.rs
+ 10 | nu                   | src/main.rs
 ----+----------------------+---------------------------
 ```
 
